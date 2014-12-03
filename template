@@ -44,6 +44,7 @@ case "$1" in
     stop)
     if is_running; then
         echo -n "Stopping $name.."
+        netstat -lnp | grep :9092 | awk '{print $7}' | sed 's/\/java//' | xargs kill
         kill `get_pid`
         for i in {1..10}
         do
